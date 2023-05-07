@@ -117,8 +117,9 @@ public class MainActivity extends AppCompatActivity {
     private void classifySound(float[][][] soundData) {
         String result = soundClassifier.classify(soundData);
         Log.i(TAG, "Classification result: " + result);
-        // ... do something with the result ...
+        Toast.makeText(getApplicationContext(), "Classification result: " + result, Toast.LENGTH_LONG).show();
     }
+
 
 
 }
