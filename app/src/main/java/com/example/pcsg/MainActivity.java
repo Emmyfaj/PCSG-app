@@ -13,6 +13,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
     private Button startRecordingButton, stopRecordingButton;
+    private TextView resultTextView;
+
 
     SoundClassifier soundClassifier;
 
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         startRecordingButton = findViewById(R.id.recordButton);
         stopRecordingButton = findViewById(R.id.stopButton);
+        resultTextView = findViewById(R.id.resultText);
 
         fileName = getExternalCacheDir().getAbsolutePath();
         fileName += "/audiorecordtest.wav";
@@ -117,8 +121,15 @@ public class MainActivity extends AppCompatActivity {
     private void classifySound(float[][][] soundData) {
         String result = soundClassifier.classify(soundData);
         Log.i(TAG, "Classification result: " + result);
-        Toast.makeText(getApplicationContext(), "Classification result: " + result, Toast.LENGTH_LONG).show();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                resultTextView.setText(result);
+                resultTextView.setVisibility(View.VISIBLE);
+            }
+        });
     }
+
 
 
 

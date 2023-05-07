@@ -46,6 +46,7 @@ public class SoundClassifier extends Activity implements SensorEventListener {
         }
     }
 
+
     private MappedByteBuffer loadModelFile(Context context, String fileName) throws IOException {
         AssetFileDescriptor fileDescriptor = context.getAssets().openFd(fileName);
         FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
